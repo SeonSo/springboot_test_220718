@@ -24,4 +24,11 @@ public class ReplyController {
         this.replyService.create(article, content);
         return String.format("redirect:/article/detail/%s", id);
     }
+
+    @PostMapping("/like/{articleId}/{replyId}")
+    public String createReply(@PathVariable("articleId") Integer articleId, @PathVariable("replyId") Integer replyId) {
+        this.replyService.setLike(replyId);
+
+        return String.format("/redirect:/article/detail/%s, articleId");
+    }
 }

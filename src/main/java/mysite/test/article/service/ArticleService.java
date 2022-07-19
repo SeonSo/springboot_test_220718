@@ -20,9 +20,12 @@ public class ArticleService {
     }
 
     public Article getArticle(Integer id) {
-        Optional<Article> article = this.articleRepository.findById(id);
-        if(article.isPresent()) {
-            return article.get();
+        Optional<Article> opArticle = this.articleRepository.findById(id);
+        if (opArticle.isPresent()) {
+            Article article = opArticle.get();
+            article.setView(article.getView()+1);
+            this.articleRepository.save(article);
+            return article;
         } else {
             throw new DataNotFoundException("article not found");
         }

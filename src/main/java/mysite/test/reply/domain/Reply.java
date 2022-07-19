@@ -23,6 +23,21 @@ public class Reply {
 
     private LocalDateTime createDate;
 
+    private Boolean like;
+
     @ManyToOne
     private Article article;
+}
+
+@Converter
+class BooleanToConverter implements AttributeConverter<Boolean, String> {
+    @Override
+    public String convertToDatabaseColumn(Boolean attribute) {
+        return (attribute != null && attribute) ? "Y" : "N";
+    }
+
+    @Override
+    public Boolean convertToEntityAttribute(String dbData) {
+        return "Y".equals(dbData);
+    }
 }
